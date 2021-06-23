@@ -5,17 +5,17 @@ from .utils import parse_command
 
 class Staples:
     def __init__(self):
-        self.staples = self.load()
+        self.data = self.load()
 
     def load(self):
         with open("grocree/staples.json", "r") as staples_file:
             staples = json.load(staples_file)
-            return staples.sort(key=lambda staple: staple.get("item"))
+            return sorted(staples, key=lambda staple: staple.get("item"))
 
     def dump(self):
 
         with open("grocree/staples.json", "w") as staples_file:
-            json.dump(self.staples, staples_file)
+            json.dump(self.data, staples_file)
 
     def menu(self):
         os.system("clear")
@@ -24,7 +24,7 @@ class Staples:
         print("=======")
         print("")
 
-        for index, staple in enumerate(self.staples):
+        for index, staple in enumerate(self.data):
             print(f"{index + 1} - {staple['item']} ({staple['amount']})")
 
         print("")
@@ -32,22 +32,24 @@ class Staples:
         self.command()
 
     def command(self):
-        user_input = input().lower()
+        user_input = input("~ ").lower()
         command = parse_command(user_input)
 
         if command == "del":
             self.delete(user_input[4:].split(" "))
-        else:
+        elif command == "add":
             self.add(user_input)
+        elif command == "menu":
+            pass
 
     def delete(self, items):
         for item in items:
-            self.staples.pop(int(item) - 1)
+            self.data.pop(int(item) - 1)
         self.dump()
         self.menu()
 
     def add(self, item):
         amount = input().lower()
-        self.staples.append({"item": item, "amount": amount})
+        self.data.append({"item": item, "amount": amount})
         self.dump()
         self.menu()

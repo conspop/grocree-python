@@ -7,17 +7,19 @@ class Nav:
         self.staples = Staples()
 
     def menu(self):
-        os.system("clear")
+        while True:
+            os.system("clear")
 
-        print("Main Menue")
-        print("=======")
-        print("")
+            print("Main Menue")
+            print("=======")
+            print("")
 
-        print("1 - staples")
-        print("2 - recipes")
-        print("3 - lists")
+            print("1 - staples")
+            print("2 - recipes")
+            print("3 - lists")
+            print("")
 
-        choice = input()
+            choice = input("~ ")
 
-        if choice == "1":
-            self.staples.menu()
+            if choice == "1":
+                self.staples.menu()
