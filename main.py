@@ -1,4 +1,4 @@
-from grocree.nav import Nav
+from grocree.menu import Menu
 
 if __name__ == "__main__":
-    Nav().menu()
+    Menu().run()
